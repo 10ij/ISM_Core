@@ -1,0 +1,11 @@
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\bin\Debug\net10.0\ISM.Core.deps.json
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\bin\Debug\net10.0\ISM.Core.dll
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\bin\Debug\net10.0\ISM.Core.pdb
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.AssemblyInfoInputs.cache
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.AssemblyInfo.cs
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.csproj.CoreCompileInputs.cache
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.dll
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\refint\ISM.Core.dll
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.pdb
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ref\ISM.Core.dll

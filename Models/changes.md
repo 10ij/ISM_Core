@@ -1,0 +1,3 @@
+Compared to the previous Access based schema, gonna add a new "enrollments" table, prev every student had their class and teacher under their own record, but what if a student is in multiple classes?
+
+Same goes for parents data, gonna add a new "parentgroup" table, i could have each parent down as a seperate entry, but i'll just group them together purely because the people using this system need something uncomplex
