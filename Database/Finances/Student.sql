@@ -1,10 +1,10 @@
 CREATE TABLE fee_exemption (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
 
     fixed_amount DECIMAL(8, 2) NULL,
-    percentage_amount DECIMAL(3, 2) NULL CHECK (percentage_amount <= 1.0),
+    percentage_amount DECIMAL(3, 2) NULL,
 
     is_recurring BOOLEAN NOT NULL DEFAULT FALSE,
 
@@ -13,7 +13,7 @@ CREATE TABLE fee_exemption (
     date_started DATE NOT NULL DEFAULT CURRENT_DATE,
     date_ended DATE NULL,
 
-    enrollment_id INT NOT NULL REFERENCES enrollment(id) ,
+    enrollment_id INT NOT NULL REFERENCES enrollment(id),
 
     -- A fee exemption can be is_archived if it is no longer in use
 
@@ -36,12 +36,12 @@ CREATE TABLE fee_exemption (
     CHECK (date_ended IS NULL OR date_ended >= date_started),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE student_entry_type (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255) NULL,
@@ -53,14 +53,14 @@ CREATE TABLE student_entry_type (
     affect_on_balance VARCHAR(10) NOT NULL CHECK (affect_on_balance IN ('Debit', 'Credit')),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE lesson_fee (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    lesson_id INT NOT NULL REFERENCES lesson(id) ,
+    lesson_id INT NOT NULL REFERENCES lesson(id),
 
     amount DECIMAL(8, 2) NOT NULL CHECK (amount >= 0),
 
@@ -73,7 +73,7 @@ CREATE TABLE lesson_fee (
     CONSTRAINT unique_dates UNIQUE (tenant_id, lesson_id, date_started),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE student_ledger (

@@ -1,24 +1,26 @@
-CREATE TABLE Student (
-    ID INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    TenantID INT NOT NULL REFERENCES Master(ID) ,
+CREATE TABLE student (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    Title iNT NULL CHECK (Title IN (0, 1, 2, 3, 4, 5)),
+    title iNT NULL CHECK (title IN (0, 1, 2, 3, 4, 5)),
 
-    FirstName VARCHAR(50) NOT NULL,
-    LastName VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
 
-    Gender INT NULL CHECK (Gender IN (0, 1)), -- 0 = Male, 1 = Female
+    gender INT NULL CHECK (gender IN (0, 1)), -- 0 = Male, 1 = Female
 
-    DoB DATE NULL,
+    date_of_birth DATE NULL,
 
-    Notes TEXT NULL,
+    notes TEXT NULL,
 
-    Allergies TEXT NULL,
+    allergies TEXT NULL,
+    
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE,
 
-    MedicalConditions TEXT NULL,
+    medical_conditions TEXT NULL,
 
-    Telephone VARCHAR(13) NULL,
+    telephone VARCHAR(20) NULL,
 
-    DateCreated TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    DateModified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

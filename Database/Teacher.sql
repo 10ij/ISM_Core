@@ -11,8 +11,8 @@ CREATE TABLE teacher (
 
     date_of_birth DATE NULL,
 
-    home_telephone VARCHAR(13) NULL,
-    mobile_telephone VARCHAR(13) NOT NULL,
+    home_telephone VARCHAR(20) NULL,
+    mobile_telephone VARCHAR(20) NOT NULL,
 
     notes TEXT NULL,
 
@@ -21,5 +21,5 @@ CREATE TABLE teacher (
     is_archived BOOLEAN NOT NULL DEFAULT FALSE,
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

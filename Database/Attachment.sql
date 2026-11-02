@@ -1,7 +1,7 @@
 CREATE TABLE dbs (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
-    teacher_id INT NOT NULL REFERENCES teacher(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
+    teacher_id INT NOT NULL REFERENCES teacher(id),
 
     name VARCHAR(50) NOT NULL,
     note TEXT NULL,
@@ -13,8 +13,8 @@ CREATE TABLE dbs (
 
 CREATE TABLE enrollment_form (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
-    student_id INT NOT NULL REFERENCES student(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
+    student_id INT NOT NULL REFERENCES student(id),
 
     name VARCHAR(50) NOT NULL,
     note TEXT NULL,

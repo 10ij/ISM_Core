@@ -1,6 +1,6 @@
 CREATE TABLE parent (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
     title iNT NOT NULL CHECK (title IN (0, 1, 2, 3, 4, 5)),
 
@@ -11,8 +11,9 @@ CREATE TABLE parent (
 
     date_of_birth DATE NOT NULL,
 
-    home_telephone VARCHAR(13) NULL,
-    mobile_telephone VARCHAR(13) NOT NULL,
+
+    home_telephone VARCHAR(20) NULL,
+    mobile_telephone VARCHAR(20) NOT NULL,
 
     notes TEXT NULL,
 
@@ -21,14 +22,15 @@ CREATE TABLE parent (
     is_archived BOOLEAN NOT NULL DEFAULT FALSE,
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE parentstudent (
+CREATE TABLE parent_student (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    parent_id INT NOT NULL REFERENCES parent(id) ,
-    student_id INT NOT NULL REFERENCES student(id) ,
+    parent_id INT NOT NULL REFERENCES parent(id),
+    student_id INT NOT NULL REFERENCES student(id),
 
     relationship INT NOT NULL CHECK (relationship IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)),
 
@@ -43,5 +45,5 @@ CREATE TABLE parentstudent (
         UNIQUE (parent_id, student_id),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

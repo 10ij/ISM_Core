@@ -1,6 +1,6 @@
 CREATE TABLE teacher_entry_type (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255) NULL,
@@ -9,16 +9,16 @@ CREATE TABLE teacher_entry_type (
     -- Debit = -1, Credit = 1
     -- Multiply the amount of this value to the amount in the related entry
     -- Then sum all entries up to get total a teacher owes (Overpayment) or is owed
-    affect_on_balance VARCHAR(10) NOT NULL CHECK (affect_on_balance IN ('Debit', 'Credit')),
+    affect_on_balance VARCHAR(6) NOT NULL CHECK (affect_on_balance IN ('Debit', 'Credit')),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE teacher_ledger (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
-    teacher_id INT NOT NULL REFERENCES teacher(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
+    teacher_id INT NOT NULL REFERENCES teacher(id),
 
     amount DECIMAL(8, 2) NOT NULL,
 

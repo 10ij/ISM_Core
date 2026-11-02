@@ -1,6 +1,6 @@
 CREATE TABLE enrollment_status (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255) NULL,
@@ -10,22 +10,22 @@ CREATE TABLE enrollment_status (
     note TEXT NULL,
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE enrollment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    student_id INT NOT NULL REFERENCES student(id) ,
-    lesson_id INT NOT NULL REFERENCES lesson(id) ,
+    student_id INT NOT NULL REFERENCES student(id),
+    lesson_id INT NOT NULL REFERENCES lesson(id),
 
-    status_id INT NOT NULL REFERENCES enrollment_status(id) ,
+    status_id INT NOT NULL REFERENCES enrollment_status(id),
 
 
     date_enrolled TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     date_unenrolled TIMESTAMPTZ NULL,
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

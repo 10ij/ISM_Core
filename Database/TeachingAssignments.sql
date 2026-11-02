@@ -1,9 +1,9 @@
 CREATE TABLE teaching_assignment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    teacher_id INT NOT NULL REFERENCES teacher(id) ,
-    lesson_id INT NOT NULL REFERENCES lesson(id) ,
+    teacher_id INT NOT NULL REFERENCES teacher(id),
+    lesson_id INT NOT NULL REFERENCES lesson(id),
 
     is_substitute BOOLEAN NOT NULL DEFAULT FALSE,
     substitute_date DATE NULL,
@@ -19,14 +19,14 @@ CREATE TABLE teaching_assignment (
     ),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE teaching_assignment_pay (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    tenant_id INT NOT NULL REFERENCES master(id) ,
+    tenant_id INT NOT NULL REFERENCES master(id),
 
-    teaching_assignment_id INT NOT NULL REFERENCES teaching_assignment(id) ,
+    teaching_assignment_id INT NOT NULL REFERENCES teaching_assignment(id),
 
     -- The default for this will be handled in C#
     lesson_rate DECIMAL(8, 2) NOT NULL CHECK (lesson_rate >= 0),
@@ -38,5 +38,5 @@ CREATE TABLE teaching_assignment_pay (
         CHECK (date_ended IS NULL OR date_ended > date_started),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    date_modifed TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
