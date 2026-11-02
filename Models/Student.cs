@@ -4,10 +4,13 @@ public class Student
 {
     public int ID { get; set; }
 
+    public required int TenantID { get; set; }
+    public PersonTitle? Title { get; set; }
+
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
 
-    public Gender Gender { get; set; }
+    public Gender? Gender { get; set; }
 
     // A question marks means it can be set as Null rather than defaulting to some random date
     public DateOnly? DoB { get; set; }
@@ -31,6 +34,7 @@ public class Student
     // Only settable on creation, unlike access app
     // Unless you have db access ofc
     public DateTime DateCreated { get; init; } = DateTime.UtcNow;
+    public DateTime DateModified { get; set; } = DateTime.UtcNow;
 
     public string? Notes { get; set; }
 
@@ -40,4 +44,5 @@ public class Student
 
     public string? Telephone { get; set; }
 
+    public bool Archived { get; set; } = false;
 }

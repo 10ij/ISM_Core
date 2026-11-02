@@ -3,9 +3,11 @@ namespace ISM.Core;
 
 // No need for file path, as file uploads are stored in a set location
 // Under the files ID
-public class Attachment
+public abstract class Attachment
 {
     public int ID { get; set; }
+
+    public required int TenantID { get; set; }
 
     public required string Name { get; set; }
 

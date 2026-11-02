@@ -5,9 +5,10 @@ public class Teacher
     // This can be a headteacher, supervisor, deputy, whatever
     public int ID { get; set; }
 
+    public required int TenantID { get; set; }
     // Need to reference a config class, default to the tenants default title
     // Add an enum for titles in config class?
-    public PersonTitle Title { get; set; }
+    public PersonTitle? Title { get; set; }
 
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
@@ -15,8 +16,10 @@ public class Teacher
     public string? HomeTelephone { get; set; }
     public required string MobileTelephone { get; set; }
 
-    public required string Address { get; set; }
-
+    public Gender? Gender { get; set; }
+    public DateOnly? DoB { get; set; }
+    public string? Notes { get; set; }
+    public string? Address1 { get; set; }
     public bool Archived { get; set; } = false;
 
     public DateTime DateCreated { get; init; } = DateTime.UtcNow;

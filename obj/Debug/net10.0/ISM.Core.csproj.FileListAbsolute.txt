@@ -9,3 +9,4 @@ C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.dl
 C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\refint\ISM.Core.dll
 C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.pdb
 C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ref\ISM.Core.dll
+C:\Users\Ismail\Desktop\projects\nea\main\ISM.Core\obj\Debug\net10.0\ISM.Core.sourcelink.json

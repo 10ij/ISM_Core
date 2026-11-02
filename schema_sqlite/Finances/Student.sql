@@ -21,7 +21,7 @@ CREATE TABLE fee_exemption (
 
     -- Can only have a percentage concession
     -- Or a fixed amount concession, not both
-    CONSTRAINTEGER check_fee_exemption_amount CHECK (
+    CONSTRAINT check_fee_exemption_amount CHECK (
         (fixed_amount IS NOT NULL AND percentage_amount IS NULL)
         OR
         (fixed_amount IS NULL AND percentage_amount IS NOT NULL)
@@ -67,10 +67,10 @@ CREATE TABLE lesson_fee (
     date_started DATE NOT NULL DEFAULT CURRENT_DATE,
     date_ended DATE NULL,
 
-    CONSTRAINTEGER chk_fee_rate_dates
+    CONSTRAINT chk_fee_rate_dates
         CHECK (date_ended IS NULL OR date_ended > date_started),
 
-    CONSTRAINTEGER unique_dates UNIQUE (tenant_id, lesson_id, date_started),
+    CONSTRAINT unique_dates UNIQUE (tenant_id, lesson_id, date_started),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     date_modified TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -102,7 +102,7 @@ CREATE TABLE student_ledger (
     -- Cannot be modified to stop dodgy stuff
 
     -- Cant have a rectification with an entry type
-    CONSTRAINTEGER check_rectification_correct CHECK (
+    CONSTRAINT check_rectification_correct CHECK (
         (is_rectification = TRUE AND entry_type_id IS NULL AND rectification_of IS NOT NULL)
         OR
         (is_rectification = FALSE AND entry_type_id IS NOT NULL AND rectification_of IS NULL)

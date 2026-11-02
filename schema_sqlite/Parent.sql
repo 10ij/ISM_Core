@@ -38,10 +38,10 @@ CREATE TABLE parent_student (
     contact_priority INTEGER NOT NULL,
 
     -- Make sure the student doesnt have two people on the same priority order
-    CONSTRAINTEGER parent_student_order
+    CONSTRAINT parent_student_order
         UNIQUE (student_id, contact_priority),
 
-    CONSTRAINTEGER parent_student_unique
+    CONSTRAINT parent_student_unique
         UNIQUE (parent_id, student_id),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,

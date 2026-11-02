@@ -37,7 +37,7 @@ CREATE TABLE teacher_ledger (
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     -- Cant have a rectification with an entry type
-    CONSTRAINTEGER check_rectification_correct CHECK (
+    CONSTRAINT check_rectification_correct CHECK (
         (is_rectification = TRUE AND entry_type_id IS NULL AND rectification_of IS NOT NULL)
         OR
         (is_rectification = FALSE AND entry_type_id IS NOT NULL AND rectification_of IS NULL)

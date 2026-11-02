@@ -12,7 +12,7 @@ CREATE TABLE teaching_assignment (
     date_ended DATE NULL,
 
     -- Substitutes have their own date
-    CONSTRAINTEGER check_schedule_dates CHECK (
+    CONSTRAINT check_schedule_dates CHECK (
         (is_substitute = FALSE AND date_started IS NOT NULL AND substitute_date IS NULL)
         OR
         (is_substitute = TRUE AND date_started IS NULL AND date_ended IS NULL AND substitute_date IS NOT NULL)
@@ -34,7 +34,7 @@ CREATE TABLE teaching_assignment_pay (
     date_started DATE NOT NULL DEFAULT CURRENT_DATE,
     date_ended DATE NULL,
 
-    CONSTRAINTEGER chk_teaching_assignment_pay_dates
+    CONSTRAINT chk_teaching_assignment_pay_dates
         CHECK (date_ended IS NULL OR date_ended > date_started),
 
     date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,

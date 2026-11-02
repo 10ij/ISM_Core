@@ -1,13 +1,13 @@
 namespace ISM.Core;
 
-public class OrgSettings
+public class Master
 {
     public int ID { get; set; }
     
     // OrgID is the ID that is exposed to the user
     // So they don't know how many tenants are stored in the system
 
-    public required Guid OrgID { get; set; }
+    public required string OrgID { get; set; }
 
     public required string Name { get; set; }
 
@@ -28,5 +28,8 @@ public class OrgSettings
     // in months    
     public int ReportingPeriodLength { get; set; } = 3;
 
+    public bool Archived { get; set; } = false;
+
+    public DateTime DateCreated { get; init; } = DateTime.UtcNow;
     public DateTime DateModified { get; set; } = DateTime.UtcNow;
 }
