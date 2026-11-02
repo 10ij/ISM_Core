@@ -1,0 +1,25 @@
+CREATE TABLE dbs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tenant_id INTEGER NOT NULL REFERENCES master(id),
+    teacher_id INTEGER NOT NULL REFERENCES teacher(id),
+
+    name VARCHAR(50) NOT NULL,
+    note TEXT NULL,
+
+    upload_complete BOOLEAN NOT NULL DEFAULT FALSE,
+
+    date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE enrollment_form (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tenant_id INTEGER NOT NULL REFERENCES master(id),
+    student_id INTEGER NOT NULL REFERENCES student(id),
+
+    name VARCHAR(50) NOT NULL,
+    note TEXT NULL,
+
+    upload_complete BOOLEAN NOT NULL DEFAULT FALSE,
+
+    date_created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
