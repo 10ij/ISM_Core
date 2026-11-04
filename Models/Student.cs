@@ -13,7 +13,7 @@ public class Student
     public Gender? Gender { get; set; }
 
     // A question marks means it can be set as Null rather than defaulting to some random date
-    public DateOnly? DoB { get; set; }
+    public DateOnly? DateOfBirth { get; set; }
 
     // Previous system had parents in a student record, what if one parent has multiple enrolled kids?
     // public required int ParentGrpID { get; set; }

@@ -5,15 +5,15 @@ public class Parent
     public int ID { get; set; }
 
     public required int TenantID { get; set; }
-    public required PersonTitle Title { get; set; }
+    public PersonTitle? Title { get; set; }
 
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
 
-    public required Gender Gender { get; set; }
-    public required DateOnly DoB { get; set; }
+    public Gender? Gender { get; set; }
+    public DateOnly? DoB { get; set; }
     public string? HomeTelephone { get; set; }
-    public required string MobileTelephone { get; set; }
+    public string? MobileTelephone { get; set; }
 
     public string? Address1 { get; set; }
 

@@ -7,7 +7,11 @@ public class Master
     // OrgID is the ID that is exposed to the user
     // So they don't know how many tenants are stored in the system
 
-    public required string OrgID { get; set; }
+    // public required Guid OrgID { get; set; }
+
+    // Instead of a GUID, I can use some cheap encryption algorithm
+    // Before a Primary Key or Foreign Key is sent to the client over http
+    // Its encrypted and then decrypted app side when running a query
 
     public required string Name { get; set; }
 
