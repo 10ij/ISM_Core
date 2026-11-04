@@ -2,20 +2,20 @@ CREATE TABLE parent (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     tenant_id INT NOT NULL REFERENCES master(id),
 
-    title iNT NOT NULL CHECK (title IN (0, 1, 2, 3, 4, 5)),
+    title iNT NULL CHECK (title IN (0, 1, 2, 3, 4, 5)),
 
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
 
-    gender INT NOT NULL CHECK (gender IN (0, 1)), -- 0 = Male, 1 = Female
+    gender INT NULL CHECK (gender IN (0, 1)), -- 0 = Male, 1 = Female
 
-    date_of_birth DATE NOT NULL,
+    date_of_birth DATE NULL,
 
 
     home_telephone VARCHAR(20) NULL,
-    mobile_telephone VARCHAR(20) NOT NULL,
+    mobile_telephone VARCHAR(20) NULL,
 
-    notes TEXT NULL,
+    notes TEXT NULL, 
 
     address_1 VARCHAR(255) NULL,
 

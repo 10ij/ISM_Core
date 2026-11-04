@@ -1,0 +1,2 @@
+-- No tables are stored here
+-- Look at the schema_pg folder for webapp tables
