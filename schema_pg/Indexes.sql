@@ -21,6 +21,5 @@ CREATE INDEX idx_teaching_assignment_lesson  ON teaching_assignment (tenant_id, 
 CREATE INDEX idx_teaching_assignment_pay_assignment
     ON teaching_assignment_pay (tenant_id, teaching_assignment_id);
 
--- Attachments
-CREATE INDEX idx_dbs_teacher ON dbs (tenant_id, teacher_id);
+-- Attachment
 CREATE INDEX idx_enrollment_form_student ON enrollment_form (tenant_id, student_id);
