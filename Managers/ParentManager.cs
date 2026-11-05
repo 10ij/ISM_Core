@@ -57,7 +57,7 @@ public class ParentManager
         cmd.Parameters.AddWithValue("Address1", (object?)address1 ?? DBNull.Value);
         cmd.Parameters.AddWithValue("Notes", (object?)notes ?? DBNull.Value);
 
-        return (int)cmd.ExecuteScalar();
+        return Convert.ToInt32(cmd.ExecuteScalar());
     } 
 
     /// <summary>
@@ -109,10 +109,10 @@ public class ParentManager
                 last_name = COALESCE(@LastName, last_name),
                 gender = COALESCE(@Gender, gender),
                 date_of_birth = COALESCE(@DateOfBirth, date_of_birth),
-                hometelephone = CASE WHEN @UpdateHomeTelephone THEN @HomeTelephone ELSE hometelephone END,
-                mobiletelephone = CASE WHEN @UpdateMobileTelephone THEN @MobileTelephone ELSE mobiletelephone END,
+                home_telephone = CASE WHEN @UpdateHomeTelephone THEN @HomeTelephone ELSE home_telephone END,
+                mobile_telephone = CASE WHEN @UpdateMobileTelephone THEN @MobileTelephone ELSE mobile_telephone END,
                 address_1 = CASE WHEN @UpdateAddress1 THEN @Address1 ELSE address_1 END,
-                notes = CASE WHEN @UpdateNotes THEN @Notes ELSE notes END,
+                notes = CASE WHEN @UpdateNotes THEN @Notes ELSE notes END
             WHERE id = @Id AND tenant_id = @TenantID;";
 
         using var cmd = new NpgsqlCommand(Query, Conn);
@@ -204,22 +204,27 @@ public class ParentManager
     /// <param name="parentId"></param>
     /// <param name="tenantId"></param>
     /// <returns></returns>
-    public Parent Read(
+    public Parent? Read(
         int parentId,
         int tenantId
     )
     {
         using var Conn = _database.GetConnection();
-        var Query = @"
+        var Query = @"  
             SELECT *
             FROM parent
             WHERE id = @Id AND tenant_id = @TenantID;";
-
+            
         using var cmd = new NpgsqlCommand(Query, Conn);
         cmd.Parameters.AddWithValue("Id", parentId);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
         using var reader = cmd.ExecuteReader();
+        if (!reader.Read())
+        {
+            return null;
+        }
+
         return new Parent
         {
             ID = reader.GetInt32(reader.GetOrdinal("id")),
@@ -233,7 +238,7 @@ public class ParentManager
             MobileTelephone = reader.IsDBNull(reader.GetOrdinal("mobile_telephone")) ? null : reader.GetString(reader.GetOrdinal("mobile_telephone")),
             Address1 = reader.IsDBNull(reader.GetOrdinal("address_1")) ? null : reader.GetString(reader.GetOrdinal("address_1")),
             Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
-            Archived = reader.GetBoolean(reader.GetOrdinal("archived")),
+            Archived = reader.GetBoolean(reader.GetOrdinal("is_archived")),
             DateModified = reader.GetDateTime(reader.GetOrdinal("date_modified")),
             DateCreated = reader.GetDateTime(reader.GetOrdinal("date_created"))
         };
@@ -250,14 +255,14 @@ public class ParentManager
         using var Conn = _database.GetConnection();
         var Query = @"
             UPDATE parent
-            SET archived = TRUE
+            SET is_archived = TRUE
             WHERE id = @Id AND tenant_id = @TenantID;";
 
         using var cmd = new NpgsqlCommand(Query, Conn);
         cmd.Parameters.AddWithValue("Id", parentId);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
-        return (bool)cmd.ExecuteScalar();
+        return cmd.ExecuteNonQuery() > 0;
     }
 
     /// <summary>
@@ -271,14 +276,14 @@ public class ParentManager
         using var Conn = _database.GetConnection();
         var Query = @"
             UPDATE parent
-            SET archived = FALSE
+            SET is_archived = FALSE
             WHERE id = @Id AND tenant_id = @TenantID;";
 
         using var cmd = new NpgsqlCommand(Query, Conn);
         cmd.Parameters.AddWithValue("Id", parentId);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
-        return (bool)cmd.ExecuteScalar();
+        return cmd.ExecuteNonQuery() > 0;
     }
     
     /// <summary>
@@ -316,7 +321,7 @@ public class ParentManager
                 MobileTelephone = reader.IsDBNull(reader.GetOrdinal("mobile_telephone")) ? null : reader.GetString(reader.GetOrdinal("mobile_telephone")),
                 Address1 = reader.IsDBNull(reader.GetOrdinal("address_1")) ? null : reader.GetString(reader.GetOrdinal("address_1")),
                 Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
-                Archived = reader.GetBoolean(reader.GetOrdinal("archived")),
+                Archived = reader.GetBoolean(reader.GetOrdinal("is_archived")),
                 DateModified = reader.GetDateTime(reader.GetOrdinal("date_modified")),
                 DateCreated = reader.GetDateTime(reader.GetOrdinal("date_created"))
             });
@@ -342,7 +347,7 @@ public class ParentManager
         using var cmd = new NpgsqlCommand(Query, Conn);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
-        return (int)cmd.ExecuteScalar();
+        return Convert.ToInt32(cmd.ExecuteScalar());
     }
 
     /// <summary>
@@ -383,7 +388,7 @@ public class ParentManager
                 MobileTelephone = reader.IsDBNull(reader.GetOrdinal("mobile_telephone")) ? null : reader.GetString(reader.GetOrdinal("mobile_telephone")),
                 Address1 = reader.IsDBNull(reader.GetOrdinal("address_1")) ? null : reader.GetString(reader.GetOrdinal("address_1")),
                 Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
-                Archived = reader.GetBoolean(reader.GetOrdinal("archived")),
+                Archived = reader.GetBoolean(reader.GetOrdinal("is_archived")),
                 DateModified = reader.GetDateTime(reader.GetOrdinal("date_modified")),
                 DateCreated = reader.GetDateTime(reader.GetOrdinal("date_created"))
             });
@@ -401,7 +406,7 @@ public class ParentManager
     {
         using var Conn = _database.GetConnection();
         var Query = @"
-            SELECT archived
+            SELECT is_archived
             FROM parent
             WHERE id = @Id AND tenant_id = @TenantID;";
 
@@ -409,7 +414,7 @@ public class ParentManager
         cmd.Parameters.AddWithValue("Id", parentId);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
-        return (bool)cmd.ExecuteScalar();
+        return Convert.ToBoolean(cmd.ExecuteScalar());
     }  
 
     /// <summary>
@@ -432,7 +437,7 @@ public class ParentManager
         cmd.Parameters.AddWithValue("Id", parentId);
         cmd.Parameters.AddWithValue("TenantID", tenantId);
 
-        return (bool)cmd.ExecuteScalar();
+        return Convert.ToBoolean(cmd.ExecuteScalar());
     }
 
     public List<int> FindRelatedStudentIds(int parentId, int tenantId)

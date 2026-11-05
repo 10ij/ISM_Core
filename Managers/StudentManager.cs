@@ -234,6 +234,7 @@ public class StudentManager
                 Gender = reader.IsDBNull(reader.GetOrdinal("gender")) ? null : (Gender)reader.GetInt32(reader.GetOrdinal("gender")),
                 DateOfBirth = reader.IsDBNull(reader.GetOrdinal("date_of_birth")) ? null : reader.GetFieldValue<DateOnly>(reader.GetOrdinal("date_of_birth")),
                 Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
+                Archived = reader.GetBoolean(reader.GetOrdinal("is_archived")),
                 Allergies = reader.IsDBNull(reader.GetOrdinal("allergies")) ? null : reader.GetString(reader.GetOrdinal("allergies")),
                 MedicalConditions = reader.IsDBNull(reader.GetOrdinal("medical_conditions")) ? null : reader.GetString(reader.GetOrdinal("medical_conditions")),
                 Telephone = reader.IsDBNull(reader.GetOrdinal("telephone")) ? null : reader.GetString(reader.GetOrdinal("telephone"))
@@ -280,8 +281,8 @@ public class StudentManager
         using var Conn = _database.GetConnection();
         using var cmd = new NpgsqlCommand(@"
             UPDATE student
-            SET archived_at = now()
-            WHERE id = @Id AND tenant_id = @TenantID AND archived_at IS NULL;", Conn);
+            SET is_archived = true
+            WHERE id = @Id AND tenant_id = @TenantID", Conn);
         cmd.Parameters.AddWithValue("Id", Id);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
         return cmd.ExecuteNonQuery() > 0;
@@ -298,8 +299,8 @@ public class StudentManager
         using var Conn = _database.GetConnection();
         using var cmd = new NpgsqlCommand(@"
             UPDATE student
-            SET archived_at = NULL
-            WHERE id = @Id AND tenant_id = @TenantID AND archived_at IS NOT NULL;", Conn);
+            SET is_archived = FALSE
+            WHERE id = @Id AND tenant_id = @TenantID;", Conn);
         cmd.Parameters.AddWithValue("Id", Id);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
         return cmd.ExecuteNonQuery() > 0;
@@ -316,7 +317,7 @@ public class StudentManager
 
         using var Conn = _database.GetConnection();
         using var cmd = new NpgsqlCommand(@"
-            SELECT id, first_name, last_name, allergies
+            SELECT id, tenant_id, first_name, last_name, allergies
             FROM student
             WHERE tenant_id = @TenantID;", Conn);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
@@ -367,7 +368,7 @@ public class StudentManager
 
         using var Conn = _database.GetConnection();
         using var cmd = new NpgsqlCommand(@"
-            SELECT id, first_name, last_name, allergies
+            SELECT id, tenant_id, first_name, last_name, allergies
             FROM student
             WHERE tenant_id = @TenantID AND (first_name ILIKE @SearchTerm OR last_name ILIKE @SearchTerm);", Conn);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
@@ -399,14 +400,13 @@ public class StudentManager
     {
         using var Conn = _database.GetConnection();
         using var cmd = new NpgsqlCommand(@"
-            SELECT archived_at IS NOT NULL
+            SELECT is_archived
             FROM student
             WHERE id = @Id AND tenant_id = @TenantID;", Conn);
         cmd.Parameters.AddWithValue("Id", Id);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
 
-        var result = cmd.ExecuteScalar();
-        return result != null && (bool)result;
+        return Convert.ToBoolean(cmd.ExecuteScalar());
     }
 
     /// <summary>
@@ -427,7 +427,7 @@ public class StudentManager
         cmd.Parameters.AddWithValue("Id", Id);
         cmd.Parameters.AddWithValue("TenantID", TenantID);
 
-        return (bool)cmd.ExecuteScalar();
+        return Convert.ToBoolean(cmd.ExecuteScalar());
     }
     
     /// <summary>
