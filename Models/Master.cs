@@ -32,7 +32,7 @@ public class Master
     // in months    
     public int ReportingPeriodLength { get; set; } = 3;
 
-    public bool Archived { get; set; } = false;
+    public bool IsArchived { get; set; } = false;
 
     public DateTime DateCreated { get; init; } = DateTime.UtcNow;
     public DateTime DateModified { get; set; } = DateTime.UtcNow;
